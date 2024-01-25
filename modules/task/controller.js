@@ -21,11 +21,7 @@ class TaskController {
 
     async getAllTasks(req, res) {
         try {
-            const limit = +req.query.limit;
-            const offset = +req.query.offset;
-            console.log(limit)
-            console.log(offset)
-            const tasks = await this.#TaskService.getAllTasks(limit, offset);
+            const tasks = await this.#TaskService.getAllTasks(+req.query.limit || 0, +req.query.offset || 0);
             res.status(200).json({ message: "Success", tasks });
         } catch (error) {
             console.log(error.message);

@@ -11,7 +11,7 @@ class ToDoService {
     }
     
     async getAllTasks(limit, offset) {
-        return await Task.find().skip((offset - 1) * limit).limit(limit);
+        return await Task.find().skip((offset) * limit).limit(limit);
     }
 
     async changeTask(text, taskId) {
