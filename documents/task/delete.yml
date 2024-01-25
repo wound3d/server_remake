@@ -1,0 +1,17 @@
+/task/:taskId:
+  delete:
+    tags:
+      - Task
+    security: [ ]
+    summary: Delete a task by taskId
+    parameters: [
+      {  
+        name: TaskId,
+        in: query,
+        description: ID of the task,
+        required: true,
+        type: integer
+      }]
+    responses:
+      "204":
+        description: Task was deleted

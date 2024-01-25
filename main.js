@@ -12,9 +12,9 @@ new Server(APP_PORT, [
     new MongoAdapter({
         database: process.env.DB_NAME,
         host: process.env.MG_HOST || "127.0.0.1",
-        port: process.env.MG_PORT || 27017,
-        login: process.env.MG_USER,
-        password: process.env.MG_PASS
+        port: process.env.MG_PORT || 49104,
+        login: process.env.MG_USER || "user",
+        password: process.env.MG_PASS || "root"
     }),
     new Routing(GLOBAL_PREFIX, [
         { prefix: "/user", router: UserRouter },
@@ -33,7 +33,7 @@ new Server(APP_PORT, [
                         url: "https://github.com/Ssstttaaasssiiikk"
                     }
                 },
-                servers: [{ url: process.env.APP_DOMAIN }],
+                servers: [{ url: process.env.APP_DOMAIN || "http://192.168.1.26:7000"}],
                 components: {
                     securitySchemes: {
                         bearer: { type: "http", scheme: "bearer", bearerFormat: "JWT" }

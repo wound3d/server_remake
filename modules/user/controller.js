@@ -31,27 +31,6 @@ class UserController {
         }
     }
 
-    async editNames(req, res) {
-        try {
-            await this.#userService.editNames(req.user._id, req.body.firstName, req.body.lastName);
-            res.status(200).json({ message: "Success" });
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).json({ message: "Oops, something went wrong..." });
-        }
-    }
-
-    async editLogin(req, res) {
-        try {
-            const result = await this.#userService.editLogin(req.user._id, req.body.login, req.body.password);
-            if (!result) return res.status(401).json({ message: "Password is not correct" });
-            res.status(200).json({ message: "Success" });
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).json({ message: "Oops, something went wrong..." });
-        }
-    }
-
     async getSelfData(req, res) {
         try {
             const user = await this.#userService.getSelfData(req.user._id);

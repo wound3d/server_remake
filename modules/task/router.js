@@ -9,8 +9,7 @@ const router = new Router();
 
 router.post("", TokenGuard.verify, Validator.validate(taskDto), TaskController.createTask);
 router.get("/all", TokenGuard.verify, TaskController.getAllTasks);
-router.get("/:taskId", TokenGuard.verify, Validator.validate(taskIdDto, CONTEXT.PATH), TaskController.getTask);
-router.patch("/:taskId", TokenGuard.verify, Validator.validate(taskIdDto, CONTEXT.PATH), TaskController.changeTaskStatus);
+router.patch("/:taskId", TokenGuard.verify, Validator.validate(taskIdDto, CONTEXT.PATH), TaskController.changeTask);
 router.delete("/:taskId", TokenGuard.verify, Validator.validate(taskIdDto, CONTEXT.PATH), TaskController.deleteTask);
 
 export default router;

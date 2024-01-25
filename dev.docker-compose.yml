@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    container_name: aipromap-mongo
+    restart: always
+    ports:
+      - 49104:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - D:\mongo\mongo-data:/data/db
+      - D:\mongo\mongo-config:/data/configdb

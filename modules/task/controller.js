@@ -11,19 +11,8 @@ class TaskController {
 
     async createTask(req, res) {
         try {
-            const taskId = await this.#TaskService.createTask(req.body, req.user._id);
+            const taskId = await this.#TaskService.createTask(req.body.text);
             res.status(200).json({ message: "Success", taskId });
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).json({ message: "Oops, something went wrong..." });
-        }
-    }
-
-    async getTask(req, res) {
-        try {
-            const task = await this.#TaskService.getTask(req.params.taskId, req.user._id);
-            if (!task) return res.status(404).json({ message: "That task is not exist" });
-            res.status(200).json({ message: "Success", task });
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: "Oops, something went wrong..." });
@@ -32,7 +21,11 @@ class TaskController {
 
     async getAllTasks(req, res) {
         try {
-            const tasks = await this.#TaskService.getAllTasks(req.user._id);
+            const limit = +req.query.limit;
+            const offset = +req.query.offset;
+            console.log(limit)
+            console.log(offset)
+            const tasks = await this.#TaskService.getAllTasks(limit, offset);
             res.status(200).json({ message: "Success", tasks });
         } catch (error) {
             console.log(error.message);
@@ -40,9 +33,9 @@ class TaskController {
         }
     }
 
-    async changeTaskStatus(req, res) {
+    async changeTask(req, res) {
         try {
-            const result = await this.#TaskService.changeTaskStatus(req.user._id, req.params.taskId);
+            const result = await this.#TaskService.changeTask(req.body.text, req.params.taskId);
             if (!result) return res.status(404).json({ message: "That task is not exist" });
             res.status(200).json({ task: result });
         } catch (error) {

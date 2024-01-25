@@ -1,0 +1,39 @@
+/task/:taskId:
+  patch:
+    tags:
+      - Task
+    security: [ ]
+    summary: Update a task
+    parameters: [
+      {  
+        name: taskId,
+        in: query,
+        description: ID of the task,
+        required: true,
+        type: string
+      }]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: text
+            properties:
+              text:
+                type: string
+                example: ASDFFDSA
+    responses:
+      "201":
+        description: Task was updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: ASDFFDSA
+                id:
+                  type: int
+                  example: 123

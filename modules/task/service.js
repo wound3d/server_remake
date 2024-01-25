@@ -2,45 +2,27 @@ import { Types } from "mongoose";
 import Task from "../models/tasks.js";
 
 class ToDoService {
-    async createTask(data, ownerId) {
-        const taskId = new Types.ObjectId();
-        await new Task({
-            _id: taskId,
-            ownerId,
-            ...data
-        }).save();
-        return taskId;
-    }
-
-    async getTask(_id, ownerId) {
-        const task = await Task.findById(_id);
-        if (!task) return false;
-        if (task.ownerId != ownerId) return false;
+    async createTask(data) {
+        const task = await Task.create({
+            _id: new Types.ObjectId(),
+            text: data
+        });
         return task;
     }
-
-    async getAllTasks(ownerId) {
-        return await Task.find({ ownerId }).select("_id name isDone");
+    
+    async getAllTasks(limit, offset) {
+        return await Task.find().skip((offset - 1) * limit).limit(limit);
     }
 
-    async changeTaskStatus(ownerId, taskId) {
-        const task = await Task.findById(taskId);
-        if (task.ownerId.toString() != ownerId) return false;
-        task.isDone = !task.isDone;
+    async changeTask(text, taskId) {
+        let task = await Task.findById(taskId);
+        task.text = text;
         await task.save();
         return task;
     }
 
-    async deleteTask(_id, ownerId) {
-        return await Task.deleteOne({ _id, ownerId });
-    }
-
-    async duplicateTask(_id) {
-        const taskId = new Types.ObjectId();
-        const taskFound = await Task.findById(_id);
-        taskFound._id = taskId;
-        taskFound.save();
-        return taskId;
+    async deleteTask(_id) {
+        return await Task.deleteOne({ _id});
     }
 }
 

@@ -1,0 +1,31 @@
+/task:
+  post:
+    tags:
+      - Task
+    security: [ ]
+    summary: Post a new task
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: text
+            properties:
+              text:
+                type: string
+                example: ASDFFDSA
+    responses:
+      "201":
+        description: Task was posted
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: ASDFFDSA
+                id:
+                  type: int
+                  example: 123

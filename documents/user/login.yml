@@ -1,0 +1,38 @@
+/login:
+  post:
+    tags:
+      - User
+    security: [ ]
+    summary: Authorization in system
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ login, password ]
+            properties:
+              login:
+                type: string
+                example: username
+              password:
+                type: string
+                example: "12345678"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "All is correct"
+                token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3MTM1YzdjLTMyYTUtNGIyOS1hNGE0.LTIwYjQzZTE4M2ZjNiIsImlhdCI6MT
+      "404":
+        $ref: '#definitions/not-found'
+      "422":
+        $ref: '#definitions/validations'
